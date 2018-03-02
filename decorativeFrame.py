@@ -32,7 +32,7 @@ def frame(original_image, color, percent_of_side):
     
     
     # Make the new image, starting with all transparent
-    frame_image = PIL.Image.new('RGBA', (width, height), (r, g, b, 255))
+    #frame_image = PIL.Image.new('RGBA', (width, height), (r, g, b, 255))
     result = original_image.copy()
     use_decorative_frame = True
     if use_decorative_frame: 
