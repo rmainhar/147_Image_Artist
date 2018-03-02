@@ -94,7 +94,7 @@ def frame_all_images(directory=None, color=(255,0,0), width=0.10):
     for n in range(len(image_list)):
         # Parse the filename
         filename, filetype = file_list[n].split('.')
-        
+        print n
         # Round the corners with radius = 30% of short side
         new_image = frame(image_list[n],color, width)
         #save the altered image, suing PNG to retain transparency
