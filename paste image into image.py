@@ -6,18 +6,19 @@ import PIL.ImageDraw
 def pasting(original_image):
     
     # Make the new image, starting with all transparent
-    result = original_image.copy()
-    design = PIL.Image.open(os.path.join(os.getcwd(), 'frame.jpg'))
+    picture = original_image.copy()
+    frame = PIL.Image.open(os.path.join(os.getcwd(), 'frame.jpg'))
     
-    width, height = design.size
+    picture_width, picture_height = picture.size
+    frame_width, frame_height = frame.size
     
-    use_decorative_frame = True
-    if use_decorative_frame: 
-       # frame_pic = PIL.Image.open(os.path.join(os.getcwd(), 'frame.jpg'))
-        custom_img =result.resize((65,65))
+    if picture_width == picture_height:
+        custom_img =picture.resize((65,65))#This will only work for square images 
         
-        design.paste(custom_img, (width/2,height/2)) # These are the coordinates you need to change
-    return design
+        frame.paste(custom_img, (frame_width/2,frame_height/2)) # These are the coordinates you need to change
+        return frame
+    else:
+        return picture #will just return a copy of the image   
     
 def get_images(directory=None):
     """ Returns PIL.Image objects for all the images in directory.
@@ -57,7 +58,7 @@ def paste_all_images(directory=None):
         directory = os.getcwd() # Use working directory if unspecified
         
     # Create a new directory 'modified'
-    new_directory = os.path.join(directory, 'framed1')
+    new_directory = os.path.join(directory, 'pasted_image')
     try:
         os.mkdir(new_directory)
     except OSError:
@@ -73,6 +74,7 @@ def paste_all_images(directory=None):
         
         # Round the corners with radius = 30% of short side
         new_image = pasting(image_list[n])
+        print n
         #save the altered image, suing PNG to retain transparency
         new_image_filename = os.path.join(new_directory, filename + '.png')
         new_image.save(new_image_filename)    
